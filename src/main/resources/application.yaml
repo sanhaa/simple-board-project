@@ -9,10 +9,12 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:oracle:thin:@//localhost:1521/XE
+#    url: jdbc:oracle:thin:@//localhost:1521/XE
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:h2:tcp://localhost/~/board
     username: board_project
     password: board_project
-    driver-class-name: oracle.jdbc.driver.OracleDriver
+    driver-class-name: org.h2.Driver
   jpa:
     defer-datasource-initialization: true
     hibernate.ddl-auto: create
