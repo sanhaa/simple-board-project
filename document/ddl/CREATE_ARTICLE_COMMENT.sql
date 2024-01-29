@@ -1,0 +1,61 @@
+-- 테이블 생성 SQL - ARTICLE_COMMENT
+CREATE TABLE ARTICLE_COMMENT
+(
+    id            INT              NOT NULL,
+    article_id    INT              NULL,
+    content       VARCHAR(4000)    NULL,
+    createAt      TIMESTAMP        NULL,
+    createBy      VARCHAR2(50)     NULL,
+    modifiedAt    TIMESTAMP        NULL,
+    modifiedBy    VARCHAR2(50)     NULL,
+    PRIMARY KEY (id)
+);
+
+-- Auto Increment를 위한 Sequence 추가 SQL - ARTICLE_COMMENT.id
+CREATE SEQUENCE ARTICLE_COMMENT_SEQ
+    START WITH 1
+    INCREMENT BY 1;
+
+-- Auto Increment를 위한 Trigger 추가 SQL - ARTICLE_COMMENT.id
+CREATE OR REPLACE TRIGGER ARTICLE_COMMENT_AI_TRG
+    BEFORE INSERT ON ARTICLE_COMMENT
+    REFERENCING NEW AS NEW FOR EACH ROW
+BEGIN
+    SELECT ARTICLE_COMMENT_SEQ.NEXTVAL
+    INTO :NEW.id
+    FROM DUAL;
+END;
+
+-- DROP TRIGGER ARTICLE_COMMENT_AI_TRG;
+
+-- DROP SEQUENCE ARTICLE_COMMENT_SEQ;
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.id
+COMMENT ON COLUMN ARTICLE_COMMENT.id IS 'id';
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.article_id
+COMMENT ON COLUMN ARTICLE_COMMENT.article_id IS 'article_id';
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.content
+COMMENT ON COLUMN ARTICLE_COMMENT.content IS 'content';
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.createAt
+COMMENT ON COLUMN ARTICLE_COMMENT.createAt IS 'createAt';
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.createBy
+COMMENT ON COLUMN ARTICLE_COMMENT.createBy IS 'createBy';
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.modifiedAt
+COMMENT ON COLUMN ARTICLE_COMMENT.modifiedAt IS 'modifiedAt';
+
+-- 컬럼 Comment 설정 SQL - ARTICLE_COMMENT.modifiedBy
+COMMENT ON COLUMN ARTICLE_COMMENT.modifiedBy IS 'modifiedBy';
+
+-- Foreign Key 설정 SQL - ARTICLE_COMMENT(article_id) -> ARTICLE(id)
+ALTER TABLE ARTICLE_COMMENT
+    ADD CONSTRAINT FK_ARTICLE_COMMENT_ARTICLE_ID FOREIGN KEY (article_id)
+        REFERENCES ARTICLE (id) ;
+
+-- Foreign Key 삭제 SQL - ARTICLE_COMMENT(article_id)
+-- ALTER TABLE ARTICLE_COMMENT
+-- DROP CONSTRAINT FK_ARTICLE_COMMENT_article_id_ARTICLE_id;
