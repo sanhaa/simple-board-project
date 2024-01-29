@@ -1,0 +1,35 @@
+debug: false
+management.endpoints.web.exposure.include: "*"
+
+logging:
+  level:
+    com.example.SimpleBBS: debug
+    org.springframework.web.servlet: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/XE
+    username: board_project
+    password: board_project
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  h2:
+    console:
+      enabled: false
+  sql.init.mode: always
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: testdb
+
